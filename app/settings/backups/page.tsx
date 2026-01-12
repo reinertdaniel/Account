@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { createBackup, listBackups, restoreBackup, type BackupFile } from "@/app/actions/backup"
 import { Button } from "@/components/ui/button"
@@ -35,9 +35,9 @@ export default function BackupsPage() {
     const router = useRouter()
 
     // Load backups on mount
-    useState(() => {
+    useEffect(() => {
         loadBackups()
-    })
+    }, [])
 
     function loadBackups() {
         setLoading(true)
