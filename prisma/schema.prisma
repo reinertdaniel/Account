@@ -1,0 +1,113 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   // INCOME, EXPENSE
+  context   String?  // BUSINESS, PERSONAL
+  isSystem  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  transactions Transaction[]
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  customerName String?
+  description  String
+  status       String   @default("OPEN") // OPEN, COMPLETED, CANCELLED
+  notes        String?
+  marketPlace  String? 
+  suppressed   Boolean  @default(false)
+  isJobLot     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  date        DateTime @default(now())
+  amount      Decimal
+  type        String   // INCOME, EXPENSE
+  description String?
+  suppressed  Boolean  @default(false)
+  
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  orderId     String?
+  order       Order?   @relation(fields: [orderId], references: [id])
+
+  tags        String? // Comma separated tags
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+}
+
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+}
+
+model Setting {
+  key         String   @id
+  value       String
+  description String?
+}
