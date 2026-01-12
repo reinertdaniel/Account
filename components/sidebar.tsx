@@ -41,6 +41,7 @@ const routes = [
 interface SidebarProps {
     stats?: {
         lifetime: { income: number; expense: number; profit: number };
+        last60Days: { income: number; expense: number; profit: number };
         last30Days: { income: number; expense: number; profit: number };
     }
 }
@@ -107,7 +108,7 @@ export function Sidebar({ stats }: SidebarProps) {
                                 <h3 className="mb-3 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                     Quick View
                                 </h3>
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     {/* Lifetime */}
                                     <div className="rounded-lg bg-card/50 p-3 border border-sidebar-border transition-colors hover:bg-card/80">
                                         <div className="flex items-stretch gap-3">
@@ -131,6 +132,34 @@ export function Sidebar({ stats }: SidebarProps) {
                                                 <div className="flex items-center justify-between">
                                                     <span className="text-[9px] font-bold text-muted-foreground uppercase">EXP</span>
                                                     <span className="text-sm font-bold text-rose-500">£{stats.lifetime.expense.toFixed(0)}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Last 60 Days */}
+                                    <div className="rounded-lg bg-card/50 p-3 border border-sidebar-border transition-colors hover:bg-card/80">
+                                        <div className="flex items-stretch gap-3">
+                                            {/* Left: Profit */}
+                                            <div className="flex flex-col justify-center flex-1">
+                                                <p className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground mb-1">Last 60 Days</p>
+                                                <div className={cn("text-xl font-bold tracking-tight", stats.last60Days.profit > 0 ? "text-emerald-500" : stats.last60Days.profit < 0 ? "text-rose-500" : "text-amber-500")}>
+                                                    £{stats.last60Days.profit.toFixed(2)}
+                                                </div>
+                                            </div>
+
+                                            {/* Divider */}
+                                            <div className="w-px bg-sidebar-border/50 my-1" />
+
+                                            {/* Right: Rev/Exp */}
+                                            <div className="flex flex-col justify-between flex-1 py-0.5">
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-[9px] font-bold text-muted-foreground uppercase">REV</span>
+                                                    <span className="text-sm font-bold text-amber-500">£{stats.last60Days.income.toFixed(0)}</span>
+                                                </div>
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-[9px] font-bold text-muted-foreground uppercase">EXP</span>
+                                                    <span className="text-sm font-bold text-rose-500">£{stats.last60Days.expense.toFixed(0)}</span>
                                                 </div>
                                             </div>
                                         </div>

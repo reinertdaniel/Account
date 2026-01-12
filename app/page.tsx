@@ -82,7 +82,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className={`text-2xl font-bold ${totalProfit > 0 ? "text-emerald-500" : totalProfit < 0 ? "text-rose-500" : "text-amber-500"}`}>
-              ${totalProfit.toFixed(2)}
+              £{totalProfit.toFixed(2)}
             </div>
             <p className="text-xs text-muted-foreground">Lifetime</p>
           </CardContent>
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className={`text-2xl font-bold ${monthlyProfit > 0 ? "text-emerald-500" : monthlyProfit < 0 ? "text-rose-500" : "text-amber-500"}`}>
-              ${monthlyProfit.toFixed(2)}
+              £{monthlyProfit.toFixed(2)}
             </div>
             <p className="text-xs text-muted-foreground">{format(now, "MMMM")}</p>
           </CardContent>
@@ -105,7 +105,7 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-500">${totalIncome.toFixed(2)}</div>
+            <div className="text-2xl font-bold text-emerald-500">£{totalIncome.toFixed(2)}</div>
             <p className="text-xs text-muted-foreground">Lifetime</p>
           </CardContent>
         </Card>
@@ -190,7 +190,7 @@ export default async function DashboardPage() {
                     <TableCell className="py-2">{format(new Date(t.date), "MMM d")}</TableCell>
                     <TableCell className="py-2 truncate max-w-[120px]">{t.description}</TableCell>
                     <TableCell className={`text-right py-2 ${t.type === 'INCOME' ? 'text-emerald-500' : 'text-rose-500'}`}>
-                      ${Number(t.amount).toFixed(2)}
+                      £{Number(t.amount).toFixed(2)}
                     </TableCell>
                   </TableRow>
                 ))}

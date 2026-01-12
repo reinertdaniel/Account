@@ -76,7 +76,7 @@ export default async function FinancesPage({ searchParams }: { searchParams: Pro
                                         )}
                                     </TableCell>
                                     <TableCell className="text-right font-medium">
-                                        <span className={Number(t.amount) > 0 ? "text-emerald-500" : Number(t.amount) < 0 ? "text-rose-500" : "text-amber-500"}>
+                                        <span className={t.type === 'INCOME' ? "text-emerald-500" : "text-rose-500"}>
                                             £{Number(t.amount).toFixed(2)}
                                         </span>
                                     </TableCell>

@@ -4,6 +4,8 @@ import prisma from '@/lib/prisma'
 
 export async function getFinancialStats() {
     const now = new Date()
+    const sixtyDaysAgo = new Date()
+    sixtyDaysAgo.setDate(now.getDate() - 60)
     const thirtyDaysAgo = new Date()
     thirtyDaysAgo.setDate(now.getDate() - 30)
 
@@ -32,6 +34,8 @@ export async function getFinancialStats() {
     let lifetimeExpense = 0
     let last30DaysIncome = 0
     let last30DaysExpense = 0
+    let last60DaysIncome = 0
+    let last60DaysExpense = 0
 
     transactions.forEach(t => {
         const val = Number(t.amount)
@@ -47,6 +51,12 @@ export async function getFinancialStats() {
             if (isIncome) last30DaysIncome += val
             else last30DaysExpense += val
         }
+
+        // Last 60 Days
+        if (date >= sixtyDaysAgo && date <= now) {
+            if (isIncome) last60DaysIncome += val
+            else last60DaysExpense += val
+        }
     })
 
     return {
@@ -59,6 +69,11 @@ export async function getFinancialStats() {
             income: last30DaysIncome,
             expense: last30DaysExpense,
             profit: last30DaysIncome - last30DaysExpense
+        },
+        last60Days: {
+            income: last60DaysIncome,
+            expense: last60DaysExpense,
+            profit: last60DaysIncome - last60DaysExpense
         }
     }
 }
