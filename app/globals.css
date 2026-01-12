@@ -48,6 +48,7 @@
 }
 
 :root {
+  --theme-transition-duration: 300ms;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -155,15 +156,6 @@
     @apply bg-muted-foreground/40;
   }
 
-  /* Smooth Theme Transition */
-  html.transitioning,
-  html.transitioning *,
-  html.transitioning *:before,
-  html.transitioning *:after {
-    transition: all var(--theme-transition-duration, 300ms) ease-in-out !important;
-    transition-delay: 0s !important;
-  }
-
   /* Global Pointer Cursor for Clickables */
   a,
   button,
@@ -178,6 +170,19 @@
   select,
   label {
     @apply cursor-pointer;
+  }
+
+  /* Smooth Theme Transition */
+  html.transitioning,
+  html.transitioning *,
+  html.transitioning *:before,
+  html.transitioning *:after {
+    transition: background-color var(--theme-transition-duration, 300ms) ease-in-out,
+      border-color var(--theme-transition-duration, 300ms) ease-in-out,
+      color var(--theme-transition-duration, 300ms) ease-in-out,
+      fill var(--theme-transition-duration, 300ms) ease-in-out,
+      stroke var(--theme-transition-duration, 300ms) ease-in-out;
+    transition-delay: 0s;
   }
 }
 

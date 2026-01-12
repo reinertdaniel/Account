@@ -2,9 +2,13 @@ import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import prisma from "@/lib/prisma"
 
-export const auth = betterAuth({
+const globalForAuth = globalThis as unknown as {
+    auth: typeof auth | undefined
+}
+
+export const auth = globalForAuth.auth ?? betterAuth({
     database: prismaAdapter(prisma, {
-        provider: "sqlite",
+        provider: "postgresql",
     }),
     socialProviders: {
         google: {
@@ -13,3 +17,5 @@ export const auth = betterAuth({
         },
     },
 })
+
+if (process.env.NODE_ENV !== "production") globalForAuth.auth = auth
