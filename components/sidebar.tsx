@@ -62,11 +62,11 @@ export function Sidebar({ stats }: SidebarProps) {
     }
 
     return (
-        <div className="space-y-4 py-4 flex flex-col h-full bg-sidebar border-r border-sidebar-border text-sidebar-foreground">
+        <div className="space-y-4 pt-2 pb-3 flex flex-col h-full bg-sidebar border-r border-sidebar-border text-sidebar-foreground">
             <div className="flex-1 flex flex-col min-h-0">
-                <div className="px-2 py-1 border-b border-sidebar-border">
-                    <Link href="/" className="flex items-center justify-center">
-                        <h1 className="text-3xl font-black font-mono tracking-tighter text-sidebar-foreground w-full text-center">
+                <div className="h-10 px-2 border-b border-sidebar-border flex items-center justify-center">
+                    <Link href="/" className="flex items-center w-full">
+                        <h1 className="text-3xl font-black font-mono tracking-tighter text-sidebar-foreground w-full text-center leading-none">
                             KATREPAIR
                         </h1>
                     </Link>
@@ -103,7 +103,7 @@ export function Sidebar({ stats }: SidebarProps) {
                         </div>
 
                         {stats && (
-                            <div className="px-4 py-4 border-t border-sidebar-border">
+                            <div className="px-2 py-4 border-t border-sidebar-border">
                                 <h3 className="mb-3 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                                     Quick View
                                 </h3>
@@ -171,12 +171,12 @@ export function Sidebar({ stats }: SidebarProps) {
                 <div className="flex-1" /> {/* Spacer */}
             </div>
 
-            <div className="p-2 border-t border-sidebar-border space-y-2">
+            <div className="px-2 pt-2 pb-0 border-t border-sidebar-border space-y-2">
                 {session?.user ? (
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="rounded-lg bg-card/50 p-2 border border-sidebar-border shadow-sm group/user"
+                        className="rounded-lg bg-card/50 p-2 border border-sidebar-border group/user text-sidebar-foreground"
                     >
                         <div className="flex items-center gap-3 px-1 mb-2">
                             <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground overflow-hidden border border-sidebar-border shadow-inner">
@@ -186,7 +186,7 @@ export function Sidebar({ stats }: SidebarProps) {
                                     <UserIcon className="h-4 w-4" />
                                 )}
                             </div>
-                            <div className="flex flex-col min-w-0">
+                            <div className="flex flex-col min-w-0 relative z-10">
                                 <p className="text-xs font-bold text-foreground truncate">{session.user.name}</p>
                                 <p className="text-[10px] text-muted-foreground truncate">{session.user.email}</p>
                             </div>
@@ -194,7 +194,7 @@ export function Sidebar({ stats }: SidebarProps) {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="w-full justify-start text-[10px] h-7 px-2 hover:bg-rose-500/10 hover:text-rose-500 transition-all cursor-pointer font-bold uppercase tracking-wider"
+                            className="w-full justify-start text-[10px] h-7 px-2 hover:bg-rose-500/10 hover:text-rose-500 transition-colors cursor-pointer font-bold uppercase tracking-wider"
                             onClick={onSignOut}
                         >
                             <LogOut className="h-3 w-3 mr-2 group-hover/user:translate-x-1 transition-transform" />
@@ -203,8 +203,8 @@ export function Sidebar({ stats }: SidebarProps) {
                     </motion.div>
                 ) : (
                     <Link href="/login" className="block cursor-pointer">
-                        <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border hover:bg-card/80 transition-all cursor-pointer shadow-sm group/signin">
-                            <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8 px-2 cursor-pointer font-bold active:scale-95 transition-all">
+                        <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border transition-colors cursor-pointer group/signin text-sidebar-foreground">
+                            <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8 px-2 cursor-pointer font-bold active:scale-95 transition-colors">
                                 <UserIcon className="h-3.5 w-3.5 mr-2 group-hover/signin:scale-110 transition-transform" />
                                 Sign In
                             </Button>
@@ -212,8 +212,8 @@ export function Sidebar({ stats }: SidebarProps) {
                     </Link>
                 )}
 
-                <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border">
-                    <div className="mb-2 px-1 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Appearance</div>
+                <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border text-sidebar-foreground">
+                    <div className="mb-2 px-1 text-[10px] font-bold text-muted-foreground uppercase tracking-wider relative z-10">Appearance</div>
                     <ModeToggle />
                 </div>
             </div>

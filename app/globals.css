@@ -48,7 +48,6 @@
 }
 
 :root {
-  --theme-transition-duration: 300ms;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -110,7 +109,6 @@
   /* Neutral grey border */
   --input: oklch(0.22 0 0);
   --ring: oklch(0.98 0 0);
-  --radius: 0.3rem;
 
   --chart-1: oklch(0.98 0 0);
   --chart-2: oklch(0.80 0 0);
@@ -169,41 +167,30 @@
   input[type="reset"],
   select,
   label {
-    @apply cursor-pointer;
-  }
-
-  /* Smooth Theme Transition */
-  html.transitioning,
-  html.transitioning *,
-  html.transitioning *:before,
-  html.transitioning *:after {
-    transition: background-color var(--theme-transition-duration, 300ms) ease-in-out,
-      border-color var(--theme-transition-duration, 300ms) ease-in-out,
-      color var(--theme-transition-duration, 300ms) ease-in-out,
-      fill var(--theme-transition-duration, 300ms) ease-in-out,
-      stroke var(--theme-transition-duration, 300ms) ease-in-out;
-    transition-delay: 0s;
+    cursor: pointer;
   }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+/* 
+  Theme Transition CSS (GPU Accelerated)
+  Forces hardware acceleration on ALL elements to prevent flash/flicker
+*/
+*,
+*::before,
+*::after {
+  /* Color transitions */
+  transition-property: color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+
+  /* GPU acceleration hints */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-new(root) {
-  z-index: 1;
+/* Font smoothing for cleaner text rendering */
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
