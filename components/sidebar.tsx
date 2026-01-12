@@ -54,7 +54,8 @@ export function Sidebar({ stats }: SidebarProps) {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    router.push("/login")
+                    // Hard redirect to clear all internal state gracefully
+                    window.location.href = "/login"
                 },
             },
         })
@@ -172,9 +173,13 @@ export function Sidebar({ stats }: SidebarProps) {
 
             <div className="p-2 border-t border-sidebar-border space-y-2">
                 {session?.user ? (
-                    <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="rounded-lg bg-card/50 p-2 border border-sidebar-border shadow-sm group/user"
+                    >
                         <div className="flex items-center gap-3 px-1 mb-2">
-                            <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground overflow-hidden border border-sidebar-border">
+                            <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground overflow-hidden border border-sidebar-border shadow-inner">
                                 {session.user.image ? (
                                     <img src={session.user.image} alt={session.user.name} className="h-full w-full object-cover" />
                                 ) : (
@@ -189,18 +194,18 @@ export function Sidebar({ stats }: SidebarProps) {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="w-full justify-start text-[10px] h-7 px-2 hover:bg-rose-500/10 hover:text-rose-500 transition-colors"
+                            className="w-full justify-start text-[10px] h-7 px-2 hover:bg-rose-500/10 hover:text-rose-500 transition-all cursor-pointer font-bold uppercase tracking-wider"
                             onClick={onSignOut}
                         >
-                            <LogOut className="h-3 w-3 mr-2" />
+                            <LogOut className="h-3 w-3 mr-2 group-hover/user:translate-x-1 transition-transform" />
                             Sign Out
                         </Button>
-                    </div>
+                    </motion.div>
                 ) : (
-                    <Link href="/login" className="block">
-                        <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border hover:bg-card/80 transition-colors">
-                            <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8 px-2">
-                                <UserIcon className="h-3.5 w-3.5 mr-2" />
+                    <Link href="/login" className="block cursor-pointer">
+                        <div className="rounded-lg bg-card/50 p-2 border border-sidebar-border hover:bg-card/80 transition-all cursor-pointer shadow-sm group/signin">
+                            <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8 px-2 cursor-pointer font-bold active:scale-95 transition-all">
+                                <UserIcon className="h-3.5 w-3.5 mr-2 group-hover/signin:scale-110 transition-transform" />
                                 Sign In
                             </Button>
                         </div>
