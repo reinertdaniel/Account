@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table"
 import Link from "next/link"
 import { format } from "date-fns"
+import { ShowSuppressedToggle } from "@/components/common/show-suppressed-toggle"
+import { Separator } from "@/components/ui/separator"
 
 
 export default async function OrdersPage({ searchParams }: { searchParams: Promise<{ showSuppressed?: string }> }) {
@@ -22,7 +24,9 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
         <div className="flex-1 space-y-4 p-8 pt-6">
             <div className="flex items-center justify-between space-y-2">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">Orders</h2>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2 bg-card/50 border border-sidebar-border rounded-xl p-1.5 shadow-sm">
+                    <ShowSuppressedToggle />
+                    <Separator orientation="vertical" className="h-6 bg-border/50" />
                     <CreateOrderDialog />
                 </div>
             </div>
