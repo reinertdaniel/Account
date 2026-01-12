@@ -12,7 +12,6 @@ import {
 import Link from "next/link"
 import { format } from "date-fns"
 
-import { ShowSuppressedToggle } from "@/components/common/show-suppressed-toggle"
 
 export default async function OrdersPage({ searchParams }: { searchParams: Promise<{ showSuppressed?: string }> }) {
     const params = await searchParams
@@ -24,7 +23,6 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
             <div className="flex items-center justify-between space-y-2">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">Orders</h2>
                 <div className="flex items-center space-x-2">
-                    <ShowSuppressedToggle />
                     <CreateOrderDialog />
                 </div>
             </div>

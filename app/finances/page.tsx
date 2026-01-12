@@ -14,7 +14,6 @@ import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import Link from "next/link"
 
-import { ShowSuppressedToggle } from "@/components/common/show-suppressed-toggle"
 import { SuppressTransactionButton } from "@/components/transactions/suppress-transaction-button"
 import { DeleteTransactionButton } from "@/components/transactions/delete-transaction-button"
 
@@ -29,7 +28,6 @@ export default async function FinancesPage({ searchParams }: { searchParams: Pro
             <div className="flex items-center justify-between space-y-2">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">Finances</h2>
                 <div className="flex items-center space-x-2">
-                    <ShowSuppressedToggle />
                     <AddTransactionDialog categories={categories} />
                 </div>
             </div>
