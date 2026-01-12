@@ -163,6 +163,22 @@
     transition: all var(--theme-transition-duration, 300ms) ease-in-out !important;
     transition-delay: 0s !important;
   }
+
+  /* Global Pointer Cursor for Clickables */
+  a,
+  button,
+  [role="button"],
+  [role="tab"],
+  [role="menuitem"],
+  [role="option"],
+  [role="switch"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  select,
+  label {
+    @apply cursor-pointer;
+  }
 }
 
 ::view-transition-old(root),
