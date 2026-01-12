@@ -38,11 +38,13 @@ const formSchema = z.object({
     isJobLot: z.boolean().default(false),
 })
 
+type FormValues = z.infer<typeof formSchema>
+
 export function CreateOrderDialog() {
     const [open, setOpen] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(formSchema) as any,
         defaultValues: {
             description: "",
             customerName: "",
@@ -52,7 +54,7 @@ export function CreateOrderDialog() {
         },
     })
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: FormValues) {
         const result = await createOrder({
             ...values,
             status: "OPEN"
@@ -84,7 +86,7 @@ export function CreateOrderDialog() {
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-4">
                         <FormField
                             control={form.control}
                             name="description"

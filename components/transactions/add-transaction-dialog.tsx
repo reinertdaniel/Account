@@ -49,7 +49,7 @@ export function AddTransactionDialog({ orderId, categories }: AddTransactionDial
     const [open, setOpen] = useState(false)
 
     const form = useForm<TransactionFormValues>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(formSchema) as any,
         defaultValues: {
             amount: "", // Default to empty string for clean input
             type: "EXPENSE",
@@ -96,7 +96,7 @@ export function AddTransactionDialog({ orderId, categories }: AddTransactionDial
                     <DialogTitle>Add Transaction</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-4">
                         <div className="flex space-x-4">
                             <FormField
                                 control={form.control}

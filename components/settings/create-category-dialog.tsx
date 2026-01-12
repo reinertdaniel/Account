@@ -32,11 +32,13 @@ const formSchema = z.object({
     context: z.string().optional(),
 })
 
+type FormValues = z.infer<typeof formSchema>
+
 export function CreateCategoryDialog() {
     const [open, setOpen] = useState(false)
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<FormValues>({
+        resolver: zodResolver(formSchema) as any,
         defaultValues: {
             name: "",
             type: "EXPENSE",
@@ -44,7 +46,7 @@ export function CreateCategoryDialog() {
         },
     })
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: FormValues) {
         const result = await createCategory(values)
 
         if (result.success) {
@@ -66,7 +68,7 @@ export function CreateCategoryDialog() {
                     <DialogTitle>Create Category</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-4">
                         <FormField
                             control={form.control}
                             name="name"

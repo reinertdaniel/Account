@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 
 export default function LoginPage() {
     return (
-        <div className="flex h-screen items-center justify-center bg-muted/40 p-4 relative login-page-hide">
+        <div className="flex h-screen items-center justify-center bg-background/50 p-4 relative login-page-hide">
             {/* Logo for signed out view within the "modal-like" card context */}
             <Card className="w-full max-w-md shadow-lg border-border bg-card">
                 <CardHeader className="text-center">
