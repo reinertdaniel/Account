@@ -208,14 +208,12 @@ export function Sidebar({ stats }: SidebarProps) {
                         className="rounded-lg bg-card/50 p-2 border border-sidebar-border group/user text-sidebar-foreground"
                     >
                         <div className="flex items-center gap-3 px-1 mb-2">
-                            <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground overflow-hidden border border-sidebar-border shadow-inner">
-                                {session.user.image ? (
+                            {session.user.image && (
+                                <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground overflow-hidden border border-sidebar-border shadow-inner flex-shrink-0">
                                     <img src={session.user.image} alt={session.user.name} className="h-full w-full object-cover" />
-                                ) : (
-                                    <UserIcon className="h-4 w-4" />
-                                )}
-                            </div>
-                            <div className="flex flex-col min-w-0 relative z-10">
+                                </div>
+                            )}
+                            <div className={cn("flex flex-col min-w-0 relative z-10", !session.user.image && "pl-1")}>
                                 <p className="text-xs font-bold text-foreground truncate">{session.user.name}</p>
                                 <p className="text-[10px] text-muted-foreground truncate">{session.user.email}</p>
                             </div>

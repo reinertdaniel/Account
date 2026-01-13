@@ -2,10 +2,14 @@ import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
 import prisma from "@/lib/prisma"
 
+// We use a singleton pattern to prevent re-initialization during HMR in development
 const authInstance = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
+    emailAndPassword: {
+        enabled: true,
+    },
     socialProviders: {
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
